@@ -1,0 +1,27 @@
+{
+  "name": "indian-railway",
+  "version": "1.0.0",
+  "description": "API provides list and schedule of trains",
+  "main": "index.js",
+  "author": "Navneet Lal Gupta <navneetlalg@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "vercel dev"
+  },
+  "dependencies": {
+    "basic-auth": "^2.0.1",
+    "jsonwebtoken": "^8.5.1",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@types/basic-auth": "^1.1.3",
+    "@types/jsonwebtoken": "^8.5.5",
+    "@types/node": "^16.4.1",
+    "@types/node-fetch": "^2.5.12",
+    "@types/uuid": "^8.3.1",
+    "@vercel/node": "^1.11.1",
+    "typescript": "^4.3.5",
+    "vercel": "^23.0.1"
+  }
+}
