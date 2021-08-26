@@ -1,11 +1,10 @@
 import { JsonWebTokenError, NotBeforeError, TokenExpiredError } from 'jsonwebtoken';
 
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import type GeoJsonTrains from '../interfaces/trains';
 
 import { jwtVerify } from '../services/tokenService';
 
-const trains: GeoJsonTrains = require('../data/trains.json');
+import trains from '../data/listOfTrains.json';
 
 export default async (request: VercelRequest, response: VercelResponse) => {
   if (request.method !== 'GET') return response.status(405).send('Method Not Allowed');
@@ -21,15 +20,7 @@ export default async (request: VercelRequest, response: VercelResponse) => {
   try {
     const isAuthenticated = await jwtVerify(token)
     if (!isAuthenticated) return response.status(403).send('Forbidden');
-    const listOfTrains = trains.features
-      .map(train => ({
-        name: train.properties.name,
-        number: train.properties.number,
-        from_station_name: train.properties.from_station_name,
-        to_station_name: train.properties.to_station_name,
-        type: train.properties.type
-      }))
-      .filter(train => type ? train.type === type : true)
+    const listOfTrains = trains.filter((train: any) => type ? train.type === type : true)
     const totalTrains = listOfTrains.length;
     const responseObj = {
       page,
