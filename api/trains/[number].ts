@@ -23,5 +23,4 @@ export default async (request: VercelRequest, response: VercelResponse) => {
       return response.status(400).send(error)
     else return response.status(500).send('Internal server error')
   }
-
 }
