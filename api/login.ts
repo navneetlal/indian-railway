@@ -4,12 +4,14 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { jwtSign } from '../services/tokenService';
 import mongoService from '../services/mongoService';
 
+import Status from '../data/response.json';
+
 export default async (request: VercelRequest, response: VercelResponse) => {
-  if (request.method !== 'POST') return response.status(405).send('Method Not Allowed');
+  if (request.method !== 'POST') return response.status(405).send(Status[405]);
 
   const credential = auth(request);
-  if (!credential) return response.status(400).send('Username or Password not provided.')
-  
+  if (!credential) return response.status(400).send(Status[400])
+
   const user = await mongoService(credential.name)
   if (
     user &&
@@ -26,8 +28,8 @@ export default async (request: VercelRequest, response: VercelResponse) => {
     } catch (error) {
       return response
         .status(500)
-        .send('Internal server error')
+        .send(Status[500])
     }
   }
-  else return response.status(401).send('Invalid username or password.');
+  else return response.status(401).send(Status[401]);
 }
