@@ -9,7 +9,7 @@ function jwtSign(username: string) {
   return new Promise((resolve, reject) => {
     const jwtSignOptions: SignOptions = {
       jwtid: uuidv4(),
-      issuer: process.env.JWT_ISSUER || 'Cogent Data',
+      issuer: process.env.JWT_ISSUER || 'Navneet',
       audience: process.env.JWT_AUDIENCE || 'web-app',
       notBefore: '-5s',
       expiresIn: '1h',
@@ -38,7 +38,7 @@ function jwtSign(username: string) {
 function jwtVerify(token: string) {
   return new Promise((resolve, reject) => {
     const jwtVerifyOptions: VerifyOptions = {
-      issuer: process.env.JWT_ISSUER || 'Cogent Data',
+      issuer: process.env.JWT_ISSUER || 'Navneet',
       audience: process.env.JWT_AUDIENCE || 'web-app'
     }
     verify(token, secret, jwtVerifyOptions, (err, claims) => {
