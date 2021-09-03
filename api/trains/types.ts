@@ -14,7 +14,7 @@ export default async (request: VercelRequest, response: VercelResponse) => {
   try {
     const isAuthenticated = await jwtVerify(token)
     if (!isAuthenticated) return response.status(403).send(Status[403]);
-    return response.status(200).send(trainType)
+    return response.status(200).send({ page: 1, perPage: 20, total: trainType.length, result: trainType })
   } catch (error) {
     if (error instanceof JsonWebTokenError || error instanceof TokenExpiredError || error instanceof NotBeforeError)
       return response.status(401).send({ ...Status[401], error })
