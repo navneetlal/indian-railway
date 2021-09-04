@@ -6,8 +6,9 @@ import { jwtVerify } from '../services/tokenService';
 
 import trains from '../data/listOfTrains.json';
 import Status from '../data/response.json';
+import allowCors from '../services/allowCors';
 
-export default async (request: VercelRequest, response: VercelResponse) => {
+const handler = async (request: VercelRequest, response: VercelResponse) => {
   if (request.method !== 'GET') return response.status(405).send(Status[405]);
 
   const { authorization } = request.headers
@@ -39,3 +40,5 @@ export default async (request: VercelRequest, response: VercelResponse) => {
   }
 
 }
+
+export default allowCors(handler);

@@ -7,8 +7,9 @@ import { jwtVerify } from '../../services/tokenService';
 
 const trains: GeoJsonTrains = require('../../data/trains.json');
 import Status from '../../data/response.json';
+import allowCors from '../../services/allowCors';
 
-export default async (request: VercelRequest, response: VercelResponse) => {
+const handler = async (request: VercelRequest, response: VercelResponse) => {
   if (request.method !== 'GET') return response.status(405).send(Status[405]);
   const { authorization } = request.headers
   if (!authorization) return response.status(403).send(Status[403]);
@@ -31,3 +32,5 @@ export default async (request: VercelRequest, response: VercelResponse) => {
     }
   }
 }
+
+export default allowCors(handler)

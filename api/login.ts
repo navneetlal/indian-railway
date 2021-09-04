@@ -5,8 +5,9 @@ import { jwtSign } from '../services/tokenService';
 import mongoService from '../services/mongoService';
 
 import Status from '../data/response.json';
+import allowCors from '../services/allowCors';
 
-export default async (request: VercelRequest, response: VercelResponse) => {
+const handler = async (request: VercelRequest, response: VercelResponse) => {
   if (request.method !== 'POST') return response.status(405).send(Status[405]);
 
   const credential = auth(request);
@@ -33,3 +34,5 @@ export default async (request: VercelRequest, response: VercelResponse) => {
   }
   else return response.status(401).send(Status[401]);
 }
+
+export default allowCors(handler)
